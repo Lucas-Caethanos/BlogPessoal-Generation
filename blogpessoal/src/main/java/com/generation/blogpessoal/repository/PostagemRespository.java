@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PostagemRespository extends JpaRepository<Postagem, Long> {
+
 }

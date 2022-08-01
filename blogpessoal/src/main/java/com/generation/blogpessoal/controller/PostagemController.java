@@ -21,6 +21,17 @@ public class PostagemController {
 
     @GetMapping
     public ResponseEntity<List<Postagem>> getAll() {
+
         return ResponseEntity.ok(postagemRespository.findAll());
     }
+
+    @GetMapping("/")
+    public ResponseEntity<Postagem> getById(@PathVariable Long id) {
+        return postagemRespository.findById(id).
+                map(resposta -> ResponseEntity.ok(resposta)).
+                orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+
+    }
 }
+
+
