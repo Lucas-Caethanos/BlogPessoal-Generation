@@ -9,14 +9,11 @@ dados
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.UpdateTimestamp;
 
 /*
@@ -56,6 +53,18 @@ public class Postagem {
     @UpdateTimestamp //
     private LocalDateTime data;
 
+    /*
+    A anotação @ManyToOne indica que a Classe Postagem será o lado N:1 e terá um
+    Objeto da Classe Tema, que no modelo Relacional será a Chave Estrangeira na Tabela
+    tb_postagens (tema_id).
+
+    A anotação @JsonIgnoreProperties indica que uma parte do JSON será ignorado, ou
+    seja, como a Relação entre as Classes será do tipo Bidirecional, ao listar o Objeto Postagem numa
+    consulta
+     */
+    @ManyToOne
+    @JsonIgnoreProperties("postagem")
+    private Tema tema;
 
     public Long getId() {
         return id;
@@ -89,5 +98,11 @@ public class Postagem {
         this.data = data;
     }
 
+    public Tema getTema() {
+        return tema;
+    }
 
+    public void setTema(Tema tema) {
+        this.tema = tema;
+    }
 }
