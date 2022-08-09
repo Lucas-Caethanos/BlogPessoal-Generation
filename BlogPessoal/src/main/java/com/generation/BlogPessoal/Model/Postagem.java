@@ -18,7 +18,7 @@ public class Postagem {
     private Long id;
 
     @NotBlank(message = "O atributo título é Obrigatório!")
-    @Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
+    @Size(min = 3, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
     private String titulo;
 
     @NotBlank(message = "O atributo texto é Obrigatório!")
@@ -32,7 +32,8 @@ public class Postagem {
     @JsonIgnoreProperties("postagem")
     private Tema tema;
 
-    /*Insira os Getters and Setters*/
+    @ManyToOne @JsonIgnoreProperties("postagem")
+    private Usuario usuario;
 
     public Long getId() {
         return this.id;
@@ -74,5 +75,11 @@ public class Postagem {
         this.tema = tema;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
